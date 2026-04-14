@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 import { ExternalLink, MousePointerClick, Calendar, Trash2, QrCode } from 'lucide-react';
 
 const Dashboard = () => {
@@ -57,7 +58,19 @@ const Dashboard = () => {
       {links.length === 0 ? (
         <div className="glass-panel" style={{ textAlign: 'center', padding: '4rem' }}>
           <h3>No links yet!</h3>
-          <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>Head to the homepage and create your first short URL.</p>
+          <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem', marginBottom: '1.5rem' }}>
+             Head to the homepage and create your first short URL.
+          </p>
+          <Link to="/" style={{ 
+            padding: '0.75rem 1.5rem', 
+            background: 'var(--primary-color)', 
+            color: 'white', 
+            borderRadius: '6px', 
+            textDecoration: 'none', 
+            fontWeight: 'bold' 
+          }}>
+            Create Your Link
+          </Link>
         </div>
       ) : (
         <div className="list-grid">
