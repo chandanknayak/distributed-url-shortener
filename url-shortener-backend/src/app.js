@@ -15,8 +15,22 @@ const __dirname = dirname(__filename);
 const app = express();
 
 app.use(helmet({ contentSecurityPolicy: false }));
+const frontendUrl = process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replace(/\/$/, '') : null;
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://distributed-url-shortener-mu.vercel.app",
+  frontendUrl
+].filter(Boolean);
+
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || "http://localhost:5173",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 };
 app.use(cors(corsOptions));
